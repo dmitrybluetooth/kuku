@@ -1,0 +1,15 @@
+﻿@model Kuku.Models.MeasuringSystem
+@{
+    ViewData["Title"] = "Add Measuring System";
+}
+<form asp-action="CreateMeasuringSystem" asp-controller="Recipe">
+    <div class="form-group">
+        <label asp-for="MeasuringSystemName" class="control-label">Name</label>
+        <input type="text" asp-for="MeasuringSystemName" class="form-control" />
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Send" class="btn btn-default" />
+    </div>
+</form>
+
+<h2>Create Measuring System</h2>

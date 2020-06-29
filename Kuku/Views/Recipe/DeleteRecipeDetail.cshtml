@@ -1,0 +1,32 @@
+﻿@model Kuku.Models.RecipeDetail
+@{
+    ViewBag.Title = "Removal product";
+}
+
+<div>
+    <dl class="dl-horizontal">
+
+        <dt>id</dt>
+        <dd>
+            @Html.DisplayFor(model => model.RecipeDetailId)
+        </dd>
+
+        <dt>description</dt>
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+
+        <dt>recipe id</dt>
+        <dd>
+            @Html.DisplayFor(model => model.RecipeId)
+        </dd>
+    </dl>
+
+    <div>
+        <form asp-controller="Recipe" asp-action="DeleteRecipeDetail" asp-route-recipedetailid="@Model.RecipeDetailId" asp-route-recipeid="@Model.RecipeId" method="post">
+            <div class="form-group">
+                <input type="submit" class="btn btn-default" value="Delete recipe details" />
+            </div>
+        </form>
+    </div>
+</div>

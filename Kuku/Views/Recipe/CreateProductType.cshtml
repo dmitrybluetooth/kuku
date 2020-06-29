@@ -1,0 +1,16 @@
+﻿@model Kuku.Models.ProductType
+@{
+    ViewData["Title"] = "Add Product Type";
+}
+<form asp-action="CreateProductType" asp-controller="Recipe">
+    <div class="form-group">
+        <label asp-for="ProductTypeName" class="control-label">Name</label>
+        <input type="text" asp-for="ProductTypeName" class="form-control" />
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Send" class="btn btn-default" />
+    </div>
+</form>
+
+<h2>Create Product Type</h2>
+

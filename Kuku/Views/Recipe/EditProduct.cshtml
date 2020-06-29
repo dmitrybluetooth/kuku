@@ -1,0 +1,23 @@
+﻿@model Kuku.Models.Product
+@{
+    ViewBag.Title = "Edit product";
+}
+<form asp-action="EditProduct" asp-controller="Recipe" asp-route-productid="@Model.ProductId" asp-route-MeasuringSystemId="@Model.MeasuringSystemId">
+    <div class="form-group">
+        <label asp-for="ProductName" class="control-label">Product name</label>
+        <input type="text" asp-for="ProductName" class="form-control" />
+    </div>
+    <p>
+        Product type <br />
+        @Html.DropDownListFor(model => model.ProductTypeId, ViewBag.ProductTypes as SelectList)
+    </p>
+
+    <p>
+        Measuring system <br />
+        @Html.DropDownListFor(model => model.MeasuringSystemId, ViewBag.MeasuringSystems as SelectList)
+    </p>
+
+    <div class="form-group">
+        <input type="submit" value="Send" class="btn btn-default" />
+    </div>
+</form>

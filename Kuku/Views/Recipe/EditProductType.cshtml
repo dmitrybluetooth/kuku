@@ -1,0 +1,13 @@
+﻿@model Kuku.Models.ProductType
+@{
+    ViewBag.Title = "Edit type of product";
+}
+<form asp-action="EditProductType" asp-controller="Recipe" asp-route-producttypeid="@Model.ProductTypeId">
+    <div class="form-group">
+        <label asp-for="ProductTypeName" class="control-label">Product type name</label>
+        <input type="text" asp-for="ProductTypeName" class="form-control" />
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Send" class="btn btn-default" />
+    </div>
+</form>

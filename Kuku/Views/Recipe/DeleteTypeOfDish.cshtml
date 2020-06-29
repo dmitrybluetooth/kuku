@@ -1,0 +1,27 @@
+﻿@model Kuku.Models.TypeOfDish
+@{
+    ViewBag.Title = "Removal type of dish";
+}
+
+<div>
+    <dl class="dl-horizontal">
+        <dt>id</dt>
+        <dd>
+            @Html.DisplayFor(model => model.TypeOfDishId)
+        </dd>
+
+        <dt>name</dt>
+        <dd>
+            @Html.DisplayFor(model => model.TypeOfDishName)
+        </dd>
+
+    </dl>
+
+    <div>
+        <form asp-controller="Recipe" asp-action="DeleteTypeOfDish" method="post">
+            <div class="form-group">
+                <input type="submit" class="btn btn-default" value="Delete type of dish" />
+            </div>
+        </form>
+    </div>
+</div>

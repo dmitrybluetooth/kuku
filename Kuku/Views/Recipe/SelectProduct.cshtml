@@ -1,0 +1,62 @@
+﻿@model Kuku.ViewModels.ProductsListViewModel
+@{
+    ViewBag.Title = "Select product";
+}
+<h2>Products catalog</h2>
+<form asp-action="FilterProduct" asp-controller="Recipe" asp-route-recipeid="@Model.Recipe.RecipeId" method="post">
+    <div class="form-inline form-group">
+        <label class="control-label">Product: </label>
+        @Html.TextBox("name", Model.Name, htmlAttributes: new { @class = "form-control" })
+
+        <label class="control-label">Product type: </label>
+        @Html.DropDownList("productTypeId", Model.ProductTypes as SelectList,
+                htmlAttributes: new { @class = "form-control" })
+
+        <input type="submit" value="Filter" class="btn btn-default" />
+    </div>
+</form>
+
+<table class="table table-striped">
+    <tr>
+        <th>Product id</th>
+        <th>Product name</th>
+        <th>Product type</th>
+        <th></th>
+        <th>Quantity</th>
+        <th>Action</th>
+
+    </tr>
+
+    @foreach (var item in Model.Products)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProductId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProductName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProductType.ProductTypeName)
+            </td>
+            @*<td>
+                    @Html.TextBoxFor(modelItem => item.Quantity,
+                          new { @type = "number", @min = "0", @step = "0.01", @value = "0" })
+                </td>*@
+            <td>
+                <form asp-action="SelectProduct" asp-controller="Recipe" asp-route-productid="@item.ProductId" asp-route-recipeid="@Model.Recipe.RecipeId" method="post">
+                    <td>
+                        <div class="form-group form-inline">
+                            <input type="text" asp-for="Quantity" class="form-control" />
+                        </div>
+                    </td>
+                    <td>
+                        <div class="form-group">
+                            <input type="submit" value="Add this product" class="btn btn-default" />
+                        </div>
+                    </td>
+                </form>
+            </td>
+        </tr>
+    }
+</table>

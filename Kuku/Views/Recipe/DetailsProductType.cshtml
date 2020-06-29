@@ -1,0 +1,11 @@
+﻿@model Kuku.Models.ProductType
+@{
+    ViewBag.Title = Model.ProductTypeName;
+}
+<h2>Product type @Model.ProductTypeName</h2>
+<div>
+    <dl class="dl-horizontal">
+        <dt>id: </dt><dd>@Model.ProductTypeId</dd>
+        <dt>name: </dt><dd>@Model.ProductTypeName</dd>
+    </dl>
+</div>

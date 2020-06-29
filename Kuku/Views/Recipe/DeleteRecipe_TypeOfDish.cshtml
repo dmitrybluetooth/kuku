@@ -1,0 +1,35 @@
+﻿@model Kuku.Models.Recipe_TypeOfDish
+@{
+    ViewBag.Title = "Removal type of dish from recipe";
+}
+
+<div>
+    <dl class="dl-horizontal">
+        <dt>recipe id</dt>
+        <dd>
+            @Html.DisplayFor(model => model.RecipeId)
+        </dd>
+
+        <dt>recipe name</dt>
+        <dd>
+            @Html.DisplayFor(model => model.Recipe.RecipeName)
+        </dd>
+
+        <dt>type of dish id</dt>
+        <dd>
+            @Html.DisplayFor(model => model.TypeOfDishId)
+        </dd>
+        <dt>type of dish name</dt>
+        <dd>
+            @Html.DisplayFor(model => model.TypeOfDish.TypeOfDishName)
+        </dd>
+    </dl>
+
+    <div>
+        <form asp-controller="Recipe" asp-action="DeleteRecipe_TypeOfDish" asp-route-typeofdishid="@Model.TypeOfDish.TypeOfDishId" asp-route-recipeid="@Model.Recipe.RecipeId" method="post">
+            <div class="form-group">
+                <input type="submit" class="btn btn-default" value="Delete" />
+            </div>
+        </form>
+    </div>
+</div>

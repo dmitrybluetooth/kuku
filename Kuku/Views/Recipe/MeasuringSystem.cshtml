@@ -1,0 +1,21 @@
+﻿@model IEnumerable<Kuku.Models.MeasuringSystem>
+@{
+    ViewData["Title"] = "MeasuringSystem";
+}
+
+<a asp-action="CreateMeasuringSystem">Add MeasuringSystem</a>
+<table class="table">
+    <tr><td>id</td><td>name</td></tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.MeasuringSystemId</td>
+            <td>@item.MeasuringSystemName</td>
+            <td>
+                <a asp-action="DetailsMeasuringSystem" asp-controller="Recipe" asp-route-id="@item.MeasuringSystemId">Details</a> |
+                <a asp-action="EditMeasuringSystem" asp-controller="Recipe" asp-route-id="@item.MeasuringSystemId">Edit</a> |
+                <a asp-action="DeleteMeasuringSystem" asp-controller="Recipe" asp-route-id="@item.MeasuringSystemId">Delete</a> |
+            </td>
+        </tr>
+    }
+</table>

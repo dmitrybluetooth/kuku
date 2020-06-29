@@ -1,0 +1,3 @@
+User-agent: *
+Disallow: /filter
+Sitemap: http://kuku.mba/sitemap.xml

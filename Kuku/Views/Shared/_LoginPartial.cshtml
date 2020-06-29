@@ -1,0 +1,36 @@
+﻿@if (User.Identity.IsAuthenticated)
+{
+    <form asp-area="" asp-controller="Account" asp-action="LogOff" method="post" id="logoutForm" class="navbar-right">
+        <ul class="navbar-nav navbar-right">
+            <li>
+                @*<a asp-area="" asp-controller="Manage" asp-action="Index" title="Manage">Hello @User.Identity.Name!</a>*@
+                @*<p class="navbar-text">Hello @User.Identity.Name!</p>*@
+                <a class="nav-link">Hello @User.Identity.Name!</a>
+            </li>
+            <li><a class="nav-link" asp-area="" asp-controller="Account" asp-action="Register">Register</a></li>
+            <li>
+                <button type="submit" class="btn btn-link navbar-btn navbar-link nav-link">Log out</button>
+            </li>
+        </ul>
+    </form>
+}
+else
+{
+    <ul class="navbar-nav navbar-right">
+        @*<li><a asp-area="" asp-controller="Account" asp-action="Register">Register</a></li>*@
+        <li><a class="nav-link" asp-area="" asp-controller="Account" asp-action="Login">Log in</a></li>
+        <li class="nav-item dropdown">
+            <a href="#" class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Language <span class="caret"></span></a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown" role="menu">
+                <li id="google_translate_element"></li>
+            </ul>
+            <script type="text/javascript">
+                function googleTranslateElementInit() {
+                    new google.translate.TranslateElement({ pageLanguage: 'en', includedLanguages: 'be,de,en,es,fr,it,pl,ru,uk', layout: google.translate.TranslateElement.InlineLayout.SIMPLE, gaTrack: true, gaId: 'UA-129594978-1' }, 'google_translate_element');
+                }
+            </script>
+            <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+        </li>
+    </ul>
+
+}

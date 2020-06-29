@@ -1,0 +1,208 @@
+﻿@model Kuku.ViewModels.FilterViewModel
+
+@{
+    ViewData["Title"] = "Welcome to the Recipe base";
+}
+<div class="row">
+    <div class="col-2">
+        @*<h3>Filter:</h3>*@
+
+        @*<form class="form-inline">*@
+        @*<input class="form-control mr-sm-2" type="search" placeholder="Search product" aria-label="Search">*@
+        @*<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            </form>*@
+
+        <div class="card top-filter-product border-light mb-3">
+            <h5 class="card-title">Popular products:</h5>
+            <div class="list-group list-group-flush">
+                @foreach (var item in Model.TopFilterProduct)
+                {
+                    <a class="list-group-item list-group-item-action @item.itemChecked d-flex justify-content-between align-items-center" href="@item.itemLink" title="@item.itemName">
+                        @item.itemName
+                        <span class="badge badge-pill badge-secondary">@item.itemCount</span>
+                    </a>
+                }
+            </div>
+        </div>
+
+
+        <div class="card-group">
+            @foreach (var filter in Model.Recipe_Filters)
+            {
+            <div class="card-body filter-product border-light mb-3">
+                @{int key = 0;}
+                @if (filter.itemsCount > 3)
+                {
+                <div class="btn-group dropright">
+                    <h5 class="card-title dropdown-toggle" id="dropdownTitle-@filter.itemMD5" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="@filter.itemType">
+                        @filter.itemType:
+                    </h5>
+                    @{string collum = "collum-1";}
+                    @if (filter.itemsCount > 5) { collum = "collum-2"; }
+                    @if (filter.itemsCount > 10) { collum = "collum-3"; }
+                    @if (filter.itemsCount > 15) { collum = "collum-4"; }
+                    @if (filter.itemsCount > 15) { collum = "collum-5"; }
+                    <div class="dropdown-menu @collum" id="dropdownMenu-@filter.itemMD5" data-toggle="dropdown">
+                        <div class="px-4 py-3">
+                            <div class="row flex-column">
+                                @{key = 0;}
+                                @foreach (var item in filter.items)
+                                {
+                                    <div class="d-flex">
+                                        <a class="dropdown-item list-group-item-action @item.itemChecked" href="@item.itemLink" title="@item.itemName">
+                                            @item.itemName
+                                            <span class="badge badge-pill badge-secondary">@item.itemCount</span>
+                                        </a>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                }
+                else
+                {
+                    <h5 class="card-title" data-target="#@filter.itemMD5" title="@filter.itemType">
+                        @filter.itemType:
+                    </h5>
+
+                }
+                <div id="@filter.itemMD5" class="collapse @filter.itemClass">
+                    <div class="list-group list-group-flush">
+                        @{key = 0;}
+                        @foreach (var item in filter.items)
+                        {
+                            @if (key < 3)
+                            {
+                                <a class="list-group-item list-group-item-action @item.itemChecked @*d-flex justify-content-between*@ align-items-center" href="@item.itemLink" title="@item.itemName">
+                                    @item.itemName
+                                    <span class="badge badge-pill badge-secondary">@item.itemCount</span>
+                                </a>
+                            }
+                            key++;
+                        }
+                        @if (filter.itemsCount > 3)
+                        {
+                            <a class="show-more" href="#" data-target="#dropdownTitle-@filter.itemMD5">
+                                Show more ...
+                            </a>
+
+                        }
+                    </div>
+                </div>
+                @*@if (filter.itemsCount > 3)
+        {
+            <h6 class="card-text text-center small text-muted" data-toggle="collapse" data-target="#@filter.itemMD5">Show more</h6>
+        }*@
+            </div>
+            }
+        </div>
+    </div>
+    <div class="col-8">
+        <div class="row">
+            <h3 class="col float-left">Recipes [@Model.PageInfo.TotalItems]</h3>
+            <div class="col btn-group justify-content-end">
+                <!-- pager -->
+                @if (Model.PageInfo.EndPage > 1)
+                {
+                    <ul class="pagination">
+                        @if (Model.PageInfo.CurrentPage > 1)
+                        {
+                            <li class="page-item">
+                                <a class="page-link" href="@Model.PageInfo.urlFirst">First</a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link" href="@Model.PageInfo.urlPage@(Model.PageInfo.CurrentPage - 1)">Previous</a>
+                            </li>
+                        }
+
+                        @for (var page = Model.PageInfo.StartPage; page <= Model.PageInfo.EndPage; page++)
+                        {
+                            <li class="page-item @(page == Model.PageInfo.CurrentPage ? "active" : "")">
+                                <a class="page-link" href="@(page == 1 ? Model.PageInfo.urlFirst : (Model.PageInfo.urlPage + page))">@(page)</a>
+                            </li>
+                        }
+
+                        @if (Model.PageInfo.CurrentPage < Model.PageInfo.TotalPages)
+                        {
+                            <li class="page-item">
+                                <a class="page-link" href="@Model.PageInfo.urlPage@(Model.PageInfo.CurrentPage + 1)">Next</a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link" href="@Model.PageInfo.urlPage@(Model.PageInfo.TotalPages)">Last</a>
+                            </li>
+                        }
+                    </ul>
+                }
+            </div>
+        </div>
+        @foreach (var item in Model.Recipes)
+        {
+            <div class="card mb-4 shadow bg-white rounded">
+                <a class="card-header btn btn-light" asp-action="DetailsRecipe" asp-controller="Home" asp-route-id="@item.RecipeId">
+                    <span class="float-left">@item.RecipeName</span>
+                    <span class="float-right text-muted small">@item.CreatedDate.ToString("dd.MM.yyyy HH:mm")</span>
+                </a>
+                <div class="card-body">
+                    <div class="row">
+                        <a class="col" style="padding-right: 5px" asp-action="DetailsRecipe" asp-controller="Home" asp-route-id="@item.RecipeId">
+                            @if (item.PreviewImageData != null)
+                            {
+                                <img src="data:image/jpeg;base64,@(Convert.ToBase64String(item.PreviewImageData))" class="rounded" />
+                            }
+                        </a>
+                        <div class="col" style="padding-left: 5px">
+                            <p class="card-text">@item.Description</p>
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                <a class="btn btn-outline-primary btn-sm" role="button" asp-action="EditRecipe" asp-controller="Recipe" asp-route-id="@item.RecipeId">Edit recipe</a>
+                                <a class="btn btn-outline-danger btn-sm" role="button" asp-action="DeleteRecipe" asp-controller="Recipe" asp-route-id="@item.RecipeId">Delete recipe</a>
+                            }
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        }
+        <div class="btn-group float-right">
+            <!-- pager -->
+            @if (Model.PageInfo.EndPage > 1)
+            {
+                <ul class="pagination">
+                    @if (Model.PageInfo.CurrentPage > 1)
+                    {
+                        <li class="page-item">
+                            <a class="page-link" href="@Model.PageInfo.urlFirst">First</a>
+                        </li>
+                        <li class="page-item">
+                            <a class="page-link" href="@Model.PageInfo.urlPage@(Model.PageInfo.CurrentPage - 1)">Previous</a>
+                        </li>
+                    }
+
+                    @for (var page = Model.PageInfo.StartPage; page <= Model.PageInfo.EndPage; page++)
+                    {
+                        <li class="page-item @(page == Model.PageInfo.CurrentPage ? "active" : "")">
+                            <a class="page-link" href="@(page == 1 ? Model.PageInfo.urlFirst : (Model.PageInfo.urlPage + page))">@(page)</a>
+                        </li>
+                    }
+
+                    @if (Model.PageInfo.CurrentPage < Model.PageInfo.TotalPages)
+                    {
+                        <li class="page-item">
+                            <a class="page-link" href="@Model.PageInfo.urlPage@(Model.PageInfo.CurrentPage + 1)">Next</a>
+                        </li>
+                        <li class="page-item">
+                            <a class="page-link" href="@Model.PageInfo.urlPage@(Model.PageInfo.TotalPages)">Last</a>
+                        </li>
+                    }
+                </ul>
+            }
+        </div>
+    </div>
+    <div class="col-2">
+        @*<h2>Google AdSense</h2>
+            <ul>
+                <li><a href="https://support.google.com/adsense#topic=1250106">Mediapartner</a></li>
+            </ul>*@
+    </div>
+</div>

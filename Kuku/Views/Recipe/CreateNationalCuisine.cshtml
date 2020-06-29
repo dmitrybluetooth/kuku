@@ -1,0 +1,16 @@
+﻿@model Kuku.Models.NationalCuisine
+@{
+    ViewData["Title"] = "Add national cuisine";
+}
+<form asp-action="CreateNationalCuisine" asp-controller="Recipe">
+    <div class="form-group">
+        <label asp-for="NationalCuisineName" class="control-label">Name</label>
+        <input type="text" asp-for="NationalCuisineName" class="form-control" />
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Send" class="btn btn-default" />
+    </div>
+</form>
+
+<h2>Create national cuisine</h2>
+

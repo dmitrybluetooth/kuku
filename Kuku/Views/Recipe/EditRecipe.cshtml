@@ -1,0 +1,27 @@
+﻿@model Kuku.Models.Recipe
+@{
+    ViewData["Title"] = "Edit recipe";
+}
+<form asp-action="EditRecipe" asp-controller="Recipe" asp-route-recipeid="@Model.RecipeId" enctype="multipart/form-data">
+
+    <div class="form-group">
+        <label asp-for="RecipeName" class="control-label">Name</label>
+        <input type="text" asp-for="RecipeName" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Description" class="control-label">Description</label>
+        <input type="text" asp-for="Description" class="form-control" />
+    </div>
+
+    <img src="data:image/jpeg;base64,@(Convert.ToBase64String(Model.PreviewImageData))" />
+
+    <div class="form-group">
+        <label>Выберите изображение</label>
+        <input name="uploadedFile" type="file" class="form-control" />
+    </div>
+
+    <p>
+        <input type="submit" value="Edit recipe" />
+    </p>
+</form>

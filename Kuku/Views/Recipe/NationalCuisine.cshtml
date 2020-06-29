@@ -1,0 +1,22 @@
+﻿@model IEnumerable<Kuku.Models.NationalCuisine>
+@{
+    ViewData["Title"] = "NationalCuisines";
+}
+
+<a asp-action="CreateNationalCuisine">Add nationality cuisine</a>
+<table class="table">
+    <tr><td>id</td><td>name</td></tr>
+    @foreach (var item in Model)
+    {
+    <tr>
+        <td>@item.NationalCuisineId</td>
+        <td>@item.NationalCuisineName</td>
+        <td>
+            <a asp-action="DetailsNationalCuisine" asp-controller="Recipe" asp-route-id="@item.NationalCuisineId">Details</a> |
+            <a asp-action="EditNationalCuisine" asp-controller="Recipe" asp-route-id="@item.NationalCuisineId">Edit</a> |
+            <a asp-action="DeleteNationalCuisine" asp-controller="Recipe" asp-route-id="@item.NationalCuisineId">Delete</a>
+        </td>
+    </tr>
+    }
+</table>
+

@@ -1,0 +1,32 @@
+﻿@model Kuku.Models.Product
+@{
+    ViewData["Title"] = "Add Product";
+}
+@using (Html.BeginForm())
+{
+<fieldset>
+    <legend>Product</legend>
+
+    <p>
+        Product name <br />
+        @Html.EditorFor(model => model.ProductName)
+    </p>
+
+    <p>
+        Product type <br />
+        @Html.DropDownListFor(model => model.ProductTypeId, ViewBag.ProductTypes as SelectList)
+    </p>
+
+    <p>
+        Measuring system <br />
+        @Html.DropDownListFor(model => model.MeasuringSystemId, ViewBag.MeasuringSystems as SelectList)
+    </p>
+
+    <p>
+        <input type="submit" value="Add product" />
+    </p>
+</fieldset>
+}
+<div>
+    @Html.ActionLink("For products list", "Product")
+</div>

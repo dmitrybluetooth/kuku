@@ -1,0 +1,38 @@
+﻿@model Kuku.ViewModels.ProductsListViewModel
+@{
+    ViewData["Title"] = "Product";
+}
+
+<a asp-action="CreateProduct">Create product</a>
+
+<form asp-action="Product" asp-controller="Recipe" method="get">
+    <div class="form-inline form-group">
+        <label class="control-label">Product: </label>
+        @Html.TextBox("productName", Model.Name, htmlAttributes: new { @class = "form-control" })
+
+        <input type="submit" value="Filter" class="btn btn-default" />
+    </div>
+</form>
+
+<table class="table table-sm table-hover">
+    <thead class="thead-light">
+        <tr><th>id</th><th>name</th><th>product type id</th><th>product type name</th><th>measuring system id</th><th>measuring system name</th></tr>
+    </thead>
+        @foreach (var item in Model.Products)
+        {
+            <tr>
+                <td>@item.ProductId</td>
+                <td>@item.ProductName</td>
+                <td>@item.ProductTypeId</td>
+                <td>@item.ProductType.ProductTypeName</td>
+                <td>@item.MeasuringSystem.MeasuringSystemId</td>
+                <td>@item.MeasuringSystem.MeasuringSystemName</td>
+                <td>
+                    <a asp-action="DetailsProduct" asp-controller="Recipe" asp-route-id="@item.ProductId">Details</a> |
+                    <a asp-action="EditProduct" asp-controller="Recipe" asp-route-id="@item.ProductId">Edit</a> |
+                    <a asp-action="DeleteProduct" asp-controller="Recipe" asp-route-id="@item.ProductId">Delete</a> |
+                </td>
+            </tr>
+        }        
+</table>
+

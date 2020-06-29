@@ -1,0 +1,16 @@
+﻿@model Kuku.Models.TypeOfDish
+@{
+    ViewData["Title"] = "Add Type Of Dish";
+}
+<form asp-action="CreateTypeOfDish" asp-controller="Recipe">
+    <div class="form-group">
+        <label asp-for="TypeOfDishName" class="control-label">Name</label>
+        <input type="text" asp-for="TypeOfDishName" class="form-control" />
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Send" class="btn btn-default" />
+    </div>
+</form>
+
+<h2>Create Type Of Dish</h2>
+

@@ -1,0 +1,40 @@
+﻿@model Kuku.ViewModels.NationalCuisineListViewModel
+@{
+    ViewBag.Title = "Select national cuisine";
+}
+<h2>type of dish catalog</h2>
+<form asp-action="FilterNationalCuisine" asp-controller="Recipe" asp-route-recipeid="@Model.Recipe.RecipeId" method="post">
+    <div class="form-inline form-group">
+        <label class="control-label">Type of dish: </label>
+        @Html.TextBox("name", Model.Name, htmlAttributes: new { @class = "form-control" })
+
+        <input type="submit" value="Filter" class="btn btn-default" />
+    </div>
+</form>
+
+<table class="table table-striped">
+    <tr>
+        <th>National cuisine id</th>
+        <th>National cuisine name</th>
+        <th>Action</th>
+    </tr>
+
+    @foreach (var item in Model.NationalCuisines)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.NationalCuisineId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NationalCuisineName)
+            </td>
+            <td>
+                <form asp-action="SelectNationalCuisine" asp-controller="Recipe" asp-route-nationalcuisineid="@item.NationalCuisineId" asp-route-recipeid="@Model.Recipe.RecipeId" method="post">
+                    <div class="form-group">
+                        <input type="submit" value="Add this cuisine" class="btn btn-default" />
+                    </div>
+                </form>
+            </td>
+        </tr>
+    }
+</table>

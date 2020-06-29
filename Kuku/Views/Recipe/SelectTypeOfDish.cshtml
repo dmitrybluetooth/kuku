@@ -1,0 +1,40 @@
+﻿@model Kuku.ViewModels.TypeOfDishesListViewModel
+@{
+    ViewBag.Title = "Select type of dish";
+}
+<h2>type of dish catalog</h2>
+<form asp-action="FilterTypeOfDish" asp-controller="Recipe" asp-route-recipeid="@Model.Recipe.RecipeId" method="post">
+    <div class="form-inline form-group">
+        <label class="control-label">Type of dish: </label>
+        @Html.TextBox("name", Model.Name, htmlAttributes: new { @class = "form-control" })
+
+        <input type="submit" value="Filter" class="btn btn-default" />
+    </div>
+</form>
+
+<table class="table table-striped">
+    <tr>
+        <th>Type of dish id</th>
+        <th>Type of dish name</th>
+        <th>Action</th>
+    </tr>
+
+    @foreach (var item in Model.TypeOfDishes)
+    {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.TypeOfDishId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TypeOfDishName)
+        </td>
+        <td>
+            <form asp-action="SelectTypeOfDish" asp-controller="Recipe" asp-route-typeofdishid="@item.TypeOfDishId" asp-route-recipeid="@Model.Recipe.RecipeId" method="post">
+                <div class="form-group">
+                    <input type="submit" value="Add this type" class="btn btn-default" />
+                </div>
+            </form>
+        </td>
+    </tr>
+    }
+</table>

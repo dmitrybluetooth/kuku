@@ -1,0 +1,106 @@
+﻿@using Kuku.ViewModels
+@model RecipeViewModel
+
+@{
+    ViewBag.Title = Model.Recipes.RecipeName;
+}
+<div class="row">
+    <div class="col-md-2">
+        @*<h2>Google AdSense</h2>
+            <ul>
+                <li><a href="https://support.google.com/adsense#topic=1250106">Mediapartner</a></li>
+            </ul>*@
+    </div>
+    <div class="col-md-7">
+        <div class="card mb-4 shadow bg-white rounded">
+            @if (Model.Recipes.BigImageData != null)
+            {
+                <img class="card-img-top" src="data:image/jpeg;base64,@(Convert.ToBase64String(Model.Recipes.BigImageData))" />
+            }
+            <div class="card-body">
+                <h3 class="card-title">@Model.Recipes.RecipeName</h3>
+                <p class="card-text">@Model.Recipes.Description</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <h2 class="text-center">Recipe whois</h2>
+        <div class="card-group">
+            <div class="card-body top-filter-product border-light mb-3">
+                <h5 class="card-title">Composition of the dish:</h5>
+                <ul class="list-group">
+                    @foreach (Recipe_Product c in Model.Recipe_Products)
+                    {
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        @c.Product.ProductName <span class="badge badge-secondary badge-pill">@c.Quantity @c.Product.MeasuringSystem.MeasuringSystemName</span>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <a class="btn btn-outline-primary btn-sm" role="button" asp-controller="Recipe" asp-action="DeleteRecipe_Product" asp-route-recipeid="@c.Recipe.RecipeId" asp-route-productid="@c.Product.ProductId">Delete</a>
+                        }
+                    </li>
+                    }
+                </ul>
+            </div>
+            <div class="card-body top-filter-product border-light mb-3">
+                <h5 class="card-title">Type of dish:</h5>
+                <ul class="list-group">
+                    @foreach (Recipe_TypeOfDish c in Model.Recipe_TypeOfDishes)
+                    {
+                        <li class="list-group-item d-flex justify-content-between align-items-center">@c.TypeOfDish.TypeOfDishName
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                <a class="btn btn-outline-primary btn-sm" role="button" asp-controller="Recipe" asp-action="DeleteRecipe_TypeOfDish" asp-route-recipeid="@c.Recipe.RecipeId" asp-route-typeofdishid="@c.TypeOfDish.TypeOfDishId">Delete</a>
+                            }
+                        </li>
+                    }
+                </ul>
+            </div>
+            <div class="card-body top-filter-product border-light mb-3">
+                <h5 class="card-title">National cuisine:</h5>
+                <ul class="list-group">
+                    @foreach (Recipe_NationalCuisine c in Model.Recipe_NationalCuisenes)
+                    {
+                        <li class="list-group-item d-flex justify-content-between align-items-center">@c.NationalCuisine.NationalCuisineName
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                <a class="btn btn-outline-primary btn-sm" role="button" asp-controller="Recipe" asp-action="DeleteRecipe_NationalCuisine" asp-route-recipeid="@c.Recipe.RecipeId" asp-route-nationalcuisineid="@c.NationalCuisine.NationalCuisineId">Delete</a>
+                            }
+                        </li>
+                    }
+                </ul>
+            </div>
+            <p class="text-muted small">Added @Model.Recipes.CreatedDate.ToString("dd.MM.yyyy HH:mm") by <br /> @Model.AspNetUserName</p>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    @foreach (RecipeDetail c in Model.RecipesDetails)
+    {
+    <div class="col-md-7 offset-md-2">
+        <div class="card mb-4 shadow bg-white rounded">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col"><img class="rounded" src="data:image/jpeg;base64,@(Convert.ToBase64String(c.PreviewImageData))" /></div>
+                    <div class="col text-center">
+                        <p class="card-text text-left">@c.Description</p>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <a class="btn btn-outline-primary btn-sm" role="button" asp-controller="Recipe" asp-action="EditRecipeDetail" asp-route-recipedetailid="@c.RecipeDetailId" asp-route-recipeid="@c.RecipeId">Edit recipe detail</a><br /><br />
+                            <a class="btn btn-outline-danger btn-sm" role="button" asp-controller="Recipe" asp-action="DeleteRecipeDetail" asp-route-recipedetailid="@c.RecipeDetailId" asp-route-recipeid="@c.RecipeId">Delete recipe detail</a>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    }
+</div>
+<br />
+@if (User.Identity.IsAuthenticated)
+{
+    <a class="btn btn-outline-secondary" role="button" asp-controller="Recipe" asp-action="CreateRecipeDetail" asp-route-id="@Model.Recipes.RecipeId">Add recipe detail</a>
+    <a class="btn btn-outline-secondary" role="button" asp-controller="Recipe" asp-action="SelectProduct" asp-route-recipeid="@Model.Recipes.RecipeId">Select product for this recipe</a>
+    <a class="btn btn-outline-secondary" role="button" asp-controller="Recipe" asp-action="SelectTypeOfDish" asp-route-recipeid="@Model.Recipes.RecipeId">Select type of dish for this recipe</a>
+    <a class="btn btn-outline-secondary" role="button" asp-controller="Recipe" asp-action="SelectNationalCuisine" asp-route-recipeid="@Model.Recipes.RecipeId">Select national cuisine for this recipe</a>
+}
