@@ -1,5 +1,4 @@
-# kuku
-Culinary Recipes Site
+# Culinary Recipes Site
 
 ![alt tag](https://github.com/dmitrybluetooth/kuku/blob/master/2020-06-29%20150201.jpg)
 
