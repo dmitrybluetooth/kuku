@@ -1,5 +1,9 @@
 # Culinary Recipes Site
 
+Реализовано:
+- База данных;
+- CRUD;
+
 ![alt tag](https://github.com/dmitrybluetooth/kuku/blob/master/2020-06-29%20150201.jpg)
 
 ---
